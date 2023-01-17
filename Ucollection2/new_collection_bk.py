@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import Tk
+import Driver
 import os
 import tkinter as tk
 
@@ -82,6 +82,8 @@ class new_collection_window(tk.Toplevel):
             self.bfile.grid(row=7, column=0, sticky=N, pady=5, padx=5)
             
         
+            
+        
         
         '''
         The following function, get_folder_name is commaned by (command=self.get_folder_name)button, and when clicked 
@@ -90,20 +92,22 @@ class new_collection_window(tk.Toplevel):
         '''
         def get_folder_name(self):
             self.folderpass=self.folder_name.get()
-            parent_directory='/home/abas/Ucollection2'
+            #parent_directory='/home/abas/Ucollection2'
+            parent_directory=os.getcwd()#This method os.getcwd, will automatically get the current directory in any pc.
             path=os.path.join(parent_directory, self.folderpass)#This uses the os.path.join method, which will help folder to join 
                                                                 #the directory path of the  parent directory.
             
             self.target_path=self.folderpass#The self.target_path is useful when creating the file and want to know the specific folder to which the file should be saved.
             all_folders=os.listdir()#List of all directories in the current directory.
             if self.folderpass=="":
-                self.confirmation.config(fg="red", bg="#00E7FF", text="Folder_filed is required")
+                self.confirmation.config(fg="red", bg="#00E7FF", text="Folder_field is required")
                 return
                 
             if self.folderpass in all_folders:
                 path=os.path.join(parent_directory, self.folderpass)
             else:
-                os.mkdir(path)
+                os.mkdir(path)#If the folder_name does not exist, the OS python module will create a folder with the name user entered in 
+                              #in the entry box
             
             self.confirmation.config(fg="green", text="Successfully created folder")
             
